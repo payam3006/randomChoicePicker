@@ -8,32 +8,50 @@ let eventKey = "";
 
 text.focus();
 
+/////////////////  const textArray = text.split(","); /////////////////////
+/////////////////////// textArray.splice(-1, 1);///////////////////////////
 const textToArray = (text) => {
-  let newItem = "";
-  let array = [];
+  // let newItem = "";
+  // let array = [];
 
-  for (let index = 0; index < text.length; index += 1) {
-    let letter = text[index];
-    if (letter !== ",") {
-      newItem += text[index];
-      if (index == text.length - 1) {
-        array.push(newItem);
-        newItem = "";
-      }
-    } else {
-      array.push(newItem);
-      newItem = "";
-    }
-  }
+  const tags = text
+    .split(",")
+    .filter((tag) => tag.trim() !== "")
+    .map((tag) => tag.trim());
+  q("split", text.split(","));
+  q(
+    "+filter",
+    text.split(",").filter((tag) => tag.trim() !== "")
+  );
+  q("+map", tags);
 
-  return array;
+  // for (let index = 0; index < text.length; index += 1) {
+  //   let letter = text[index];
+  //   if (letter !== ",") {
+  //     newItem += text[index];
+  //     if (index == text.length - 1) {
+  //       array.push(newItem);
+  //       newItem = "";
+  //     }
+  //   } else {
+  //     array.push(newItem);
+  //     newItem = "";
+  //   }
+  // }
+
+  // return array;
+  return tags;
 };
+/////////////////  const textArray = text.split(","); /////////////////////
+/////////////////////// textArray.splice(-1, 1);///////////////////////////
 
 const showItemsFromArray = () => {
   choices.innerHTML = "";
 
   items.forEach(function (item, index) {
-    choices.innerHTML += `<div id="item${index}" class="choice">${item}</div>`;
+    if (item !== "") {
+      choices.innerHTML += `<div id="item${index}" class="choice">${item}</div>`;
+    }
   });
 };
 
